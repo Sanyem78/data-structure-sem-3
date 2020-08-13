@@ -1,71 +1,99 @@
 #include <iostream>
+
 using namespace std;
 struct node
 {
-  public:
-      int data;
-      node* next;
+  public: int data;
+          node* next;
 };
-class link
-{ private:
-           node* head;
-           node* tail;
-    
-  public:
-  link()
-  {
-      head=NULL;
-      tail=NULL;
-  }
-           void append(int n)
-            { 
+class linkedlist
+{
+    private: node* head;
+             node* tail;
+    public:
+    linkedlist()
+    {
+     head=NULL;
+     tail=NULL;
+    }
+            
+             void append(int value)
+             {
                 node* temp=new node;
-                temp->data=n;
+                temp->data=value;
                 temp->next=NULL;
-            if(head==NULL)
-            {
-              head=temp;
-              tail=temp;
-              temp=NULL;
-            }
-            else
-            {   
-                tail->next=temp;
-                tail=temp;
-            }
-        
-            }
-            void display()
-            {
+                if(head==NULL)
+                {
+                    head=temp;
+                    tail=temp;
+                    temp=NULL;
+                }
+                else
+                {
+                    tail->next=temp;
+                    tail=temp;
+                }
+             }
+             void append_at_begin(int value)
+             {
+                 node* temp=new node;
+                 temp->data=value;
+                 temp->next=NULL;
+                 if(head==NULL)
+                 {
+                     head=temp;
+                     tail=temp;
+                     temp=NULL;
+                 }
+                 else
+                 {
+                     temp->next=head;
+                     head=temp;
+                 }
+             }
+             void display()
+             {
                 node* ptr=new node;
-                ptr = head;
-                while (ptr != NULL) 
-            {
-                cout<< ptr->data <<" ";
-                ptr = ptr->next;
-            }
-            }
+                ptr=head;
+                if(head==NULL)
+                {
+                    cout<<"list is empty"<<endl;
+                }
+                else
+                {   cout<<"your entered linked list is"<<endl;
+                while(ptr!=NULL)
+                {
+                    cout<<ptr->data<<" "<<endl;
+                    ptr=ptr->next;
+                }
+                }
+             }
 };
 int main()
 {
-    link obj;
-    int choice,n,flag=1;
+   linkedlist obj;
+    int choice,n,n1,flag=1;
  while(flag==1)
- {
-    cout<<"press 1 for appending list"<<endl;
-    cout<<"press 2 for displaying list"<<endl;
-    cout<<"press 3 for exit"<<endl;
+ {  cout<<"press 0 for exit"<<endl;
+    cout<<"press 1 for displaying list"<<endl;
+    cout<<"press 2 for appending list at end"<<endl;
+    cout<<"press 3 for appending list at begin"<<endl;
     cin>>choice;
     switch(choice)
     {
-        case 1: cout<<"enter data "<<endl;
+        case 0: flag=0;
+                break;
+        case 1: 
+                obj.display();
+                break;
+        case 2:
+                cout<<"enter data "<<endl;
                 cin>>n;
                 obj.append(n);
                 break;
-        case 2: cout<<"your entered linked list is"<<endl;
-                obj.display();
-                break;
-        case 3: flag=0;
+        case 3: cout<<"enter data to insert at begining"<<endl;
+                cin>>n1;
+                obj.append_at_begin(n1);
                 break;
         default: cout<<"invalid input"<<endl;
 
@@ -73,4 +101,3 @@ int main()
  }
     return 0;
 }
-
