@@ -1,5 +1,4 @@
 #include <iostream>
-
 using namespace std;
 struct node
 {
@@ -16,7 +15,6 @@ class linkedlist
      head=NULL;
      tail=NULL;
     }
-            
              void append(int value)
              {
                 node* temp=new node;
@@ -51,6 +49,49 @@ class linkedlist
                      head=temp;
                  }
              }
+             int no_of_data()
+             {
+                 int count=0;
+                 node* ptr=new node;
+                 ptr=head;
+                 while(ptr!=NULL)
+                 {
+                     ptr=ptr->next;
+                     count++;
+                 }
+                 return count;
+                 
+             }
+             void append_in_bwn(int n,int val)
+             {
+                if(n==1)
+                {
+                    append_at_begin(val);
+                }
+                else
+                if(n==no_of_data()+1)
+                {
+                    append(val);
+                }
+                else
+                {
+                    node* ptr=new node;
+                    node* temp=new node;
+                    temp->data=val;
+                    temp->next=NULL;
+                    ptr=head;
+                    int count=1;
+                    while(count<n-1)
+                    {
+                        ptr=ptr->next;
+                        count++;
+                    }
+                    temp->next=ptr->next;
+                    ptr->next=temp;
+                    
+                }
+                
+             }
              void display()
              {
                 node* ptr=new node;
@@ -72,12 +113,14 @@ class linkedlist
 int main()
 {
    linkedlist obj;
-    int choice,n,n1,flag=1;
+    int pos,choice,n,n1,n2,flag=1;
  while(flag==1)
  {  cout<<"press 0 for exit"<<endl;
     cout<<"press 1 for displaying list"<<endl;
     cout<<"press 2 for appending list at end"<<endl;
     cout<<"press 3 for appending list at begin"<<endl;
+    cout<<"press 4 for appending list in between"<<endl;
+    cout<<"press 5 for total no. of data present in list"<<endl;
     cin>>choice;
     switch(choice)
     {
@@ -95,9 +138,17 @@ int main()
                 cin>>n1;
                 obj.append_at_begin(n1);
                 break;
+        case 4: cout<<"enter the position where you want to insert the data"<<endl;
+                cin>>pos;
+                cout<<"enter the data you want to insert"<<endl;
+                cin>>n2;
+                obj.append_in_bwn(pos,n2);
+                break;
+        case 5: cout<<obj.no_of_data()<<endl;
+                break;
         default: cout<<"invalid input"<<endl;
-
     }
  }
     return 0;
 }
+
