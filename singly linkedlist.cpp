@@ -126,6 +126,30 @@ class linkedlist
                      tail=ptr;
                  }
              }
+             void del_in_bwn(int n)
+             {
+                if(n==1)
+                {
+                    del_at_begin();
+                }
+                else
+                if(n==no_of_data())
+                {
+                    del_in_end();
+                }
+                else
+                {   cout<<"deleting data at "+n+" th position"<<endl;
+                    int count=1;
+                    node* ptr=new node;
+                    ptr=head;
+                    while(count<n-1)
+                    {   
+                        ptr=ptr->next;
+                        count++;
+                    }
+                    ptr->next=ptr->next->next;
+                }
+             }
              void display()
              {
                 node* ptr=new node;
@@ -147,7 +171,7 @@ class linkedlist
 int main()
 {
    linkedlist obj;
-    int pos,choice,n,n1,n2,flag=1;
+    int pos,choice,n,n1,n2,n3,flag=1;
  while(flag==1)
  {  cout<<"press 0 for exit"<<endl;
     cout<<"press 1 for displaying list"<<endl;
@@ -157,6 +181,7 @@ int main()
     cout<<"press 5 for total no. of data present in list"<<endl;
     cout<<"press 6 for deleting data at begining"<<endl;
     cout<<"press 7 for deleting data in the end"<<endl;
+    cout<<"press 8 for deleting data in between"<<endl;
     cin>>choice;
     switch(choice)
     {
@@ -188,9 +213,15 @@ int main()
         case 7:
                 obj.del_in_end();
                 break;
+        case 8: 
+              cout<<"enter the position where you want to delete the data"<<endl;
+              cin>>n3;
+              obj.del_in_bwn(n3);
+              break;
         default: cout<<"invalid input"<<endl;
     }
  }
     return 0;
 }
+
 
