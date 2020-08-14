@@ -138,7 +138,7 @@ class linkedlist
                     del_in_end();
                 }
                 else
-                {   cout<<"deleting data at "+n+" th position"<<endl;
+                {   cout<<"deleting data at n th position"<<endl;
                     int count=1;
                     node* ptr=new node;
                     ptr=head;
