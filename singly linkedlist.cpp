@@ -60,7 +60,6 @@ class linkedlist
                      count++;
                  }
                  return count;
-                 
              }
              void append_in_bwn(int n,int val)
              {
@@ -88,9 +87,44 @@ class linkedlist
                     }
                     temp->next=ptr->next;
                     ptr->next=temp;
-                    
                 }
-                
+             }
+             void del_at_begin()
+             {
+               if(head==NULL)
+               {
+                   cout<<"list is empty"<<endl;
+               }
+               else
+               {   cout<<"deleting first item from the begining"<<endl;
+                   node* ptr=new node;
+                   ptr=head;
+                   head=ptr->next;
+                   ptr=NULL;
+               }
+             }
+             void del_in_end()
+             {
+                 if(head==NULL)
+                 {
+                     cout<<"list is empty"<<endl;
+                 }
+                 else
+                 if(head==tail)
+                 {
+                     del_at_begin();
+                 }
+                 else
+                 { cout<<"deleting data in the end"<<endl;
+                     node* ptr=new node;
+                     ptr=head;
+                     while(ptr->next->next!=NULL)
+                     {
+                         ptr=ptr->next;
+                     }
+                     ptr->next=NULL;
+                     tail=ptr;
+                 }
              }
              void display()
              {
@@ -121,6 +155,8 @@ int main()
     cout<<"press 3 for appending list at begin"<<endl;
     cout<<"press 4 for appending list in between"<<endl;
     cout<<"press 5 for total no. of data present in list"<<endl;
+    cout<<"press 6 for deleting data at begining"<<endl;
+    cout<<"press 7 for deleting data in the end"<<endl;
     cin>>choice;
     switch(choice)
     {
@@ -145,6 +181,12 @@ int main()
                 obj.append_in_bwn(pos,n2);
                 break;
         case 5: cout<<obj.no_of_data()<<endl;
+                break;
+        case 6:
+                obj.del_at_begin();
+                break;
+        case 7:
+                obj.del_in_end();
                 break;
         default: cout<<"invalid input"<<endl;
     }
