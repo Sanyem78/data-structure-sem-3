@@ -150,6 +150,39 @@ class linkedlist
                     ptr->next=ptr->next->next;
                 }
              }
+             void search(int n)
+             {  if(head==NULL)
+             {
+                 cout<<"empty list"<<endl;
+             }
+             else
+             {
+                int count=1;
+                int flag=0;
+                node* ptr=new node;
+                ptr=head;
+                while(ptr!=NULL)
+                {
+                    if(ptr->data==n)
+                    {
+                        cout<<"element found at "<<count<<" position"<<endl;
+                        flag=1;
+                        break;
+                    }
+                    else
+                    {
+                        flag=0;
+                    }
+                        ptr=ptr->next;
+                        count++;
+                }
+                if(flag==0)
+                {
+                    cout<<"element not found"<<endl;
+                }
+                
+             }
+             }
              void display()
              {
                 node* ptr=new node;
@@ -171,7 +204,7 @@ class linkedlist
 int main()
 {
    linkedlist obj;
-    int pos,choice,n,n1,n2,n3,flag=1;
+    int pos,choice,n,n1,n2,n3,n4,flag=1;
  while(flag==1)
  {  cout<<"press 0 for exit"<<endl;
     cout<<"press 1 for displaying list"<<endl;
@@ -182,6 +215,7 @@ int main()
     cout<<"press 6 for deleting data at begining"<<endl;
     cout<<"press 7 for deleting data in the end"<<endl;
     cout<<"press 8 for deleting data in between"<<endl;
+    cout<<"press 9 for search an element"<<endl;
     cin>>choice;
     switch(choice)
     {
@@ -218,10 +252,14 @@ int main()
               cin>>n3;
               obj.del_in_bwn(n3);
               break;
+        case 9:
+              cout<<"enter the element you want to search"<<endl;
+              cin>>n4;
+              obj.search(n4);
+              break;
         default: cout<<"invalid input"<<endl;
     }
  }
     return 0;
 }
-
 
