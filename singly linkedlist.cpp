@@ -200,6 +200,37 @@ class linkedlist
                 }
                 }
              }
+             void reverse()
+             {
+                  node* current = head; 
+                 node *prev = NULL, *n = NULL; 
+  
+        while (current != NULL) { 
+             
+            n = current->next; 
+  
+             
+            current->next = prev; 
+  
+         
+            prev = current; 
+            current = n; 
+        } 
+        head = prev; 
+             }
+             bool isempty()
+             {
+                 if(head==NULL)
+                 {
+                     cout<<"list is empty"<<endl;
+                     return true;
+                 }
+                 else
+                 {
+                     cout<<"list is not empty"<<endl;
+                     return false;
+                 }
+             }
 };
 int main()
 {
@@ -216,6 +247,8 @@ int main()
     cout<<"press 7 for deleting data in the end"<<endl;
     cout<<"press 8 for deleting data in between"<<endl;
     cout<<"press 9 for search an element"<<endl;
+    cout<<"pess 10 for reversing the linkedlist"<<endl;
+    cout<<"press 11 to check that list is empty or not"<<endl;
     cin>>choice;
     switch(choice)
     {
@@ -257,9 +290,16 @@ int main()
               cin>>n4;
               obj.search(n4);
               break;
+        case 10:
+              cout<<"reversing the following linkedlist"<<endl;
+              obj.reverse();
+              obj.display();
+              break;
+        case 11:
+              obj.isempty();
+              break;
         default: cout<<"invalid input"<<endl;
     }
  }
     return 0;
 }
-
