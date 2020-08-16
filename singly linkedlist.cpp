@@ -27,6 +27,7 @@ class linkedlist
             delete ptr;
             ptr=temp;
         }
+   }
              void append(int value)
              {
                 node* temp=new node;
