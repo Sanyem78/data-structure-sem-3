@@ -14,6 +14,22 @@ class linkedlist
     {
      tail=NULL;
     }
+    ~linkedlist()
+    {   node* ptr=new node();
+        node* temp=new node();
+        if (!isempty())
+		{  
+			cout << "\nDeallocating memory...\n";
+			ptr = tail->next;
+			tail->next = NULL;
+			while (ptr != NULL)
+			{
+				temp = ptr->next;
+				delete ptr;
+				ptr = temp;
+			}
+		}
+    }
              void append(int value)
              {
                 node* temp=new node;
