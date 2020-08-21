@@ -131,6 +131,64 @@ class linkedlist
 			tail = ptr;
                  }
              }
+             void del_in_pos(int n)
+             {
+                 if(n==1)
+                 {
+                     del_at_begin();
+                 }
+                 else
+                 if(n==no_of_data())
+                 {
+                     del_at_end();
+                 }
+                 else
+                 {
+                     cout<<"deleting data at n th position"<<endl;
+                    int count=1;
+                    node* ptr=new node;
+                    ptr=tail->next;
+                    while(count<n-1)
+                    {   ptr=ptr->next;
+                        count++;
+                    }
+                    ptr->next=ptr->next->next;
+                 }
+             }
+             void search(int n)
+             {
+                  if(isempty())
+             {
+                 cout<<"empty list"<<endl;
+             }
+             else
+             {
+                int count=1;
+                int flag=0;
+                node* ptr=new node;
+                ptr=tail->next;
+                do
+                {
+                    if(ptr->data==n)
+                    {
+                        cout<<"element found at "<<count<<" position"<<endl;
+                        flag=1;
+                        break;
+                    }
+                    else
+                    {
+                        flag=0;
+                    }
+                        ptr=ptr->next;
+                        count++;
+                }while(ptr!=tail->next);
+                if(flag==0)
+                {
+                    cout<<"element not found"<<endl;
+                }
+                
+             }
+             }
              void display()
              {
                 node* ptr=new node;
@@ -148,6 +206,50 @@ class linkedlist
                 }while(ptr!=tail->next);
              }
              }
+             void reverse()
+             {  
+                 node *temp1 = new node;
+                  node *ptr = new node;
+                   node *temp = new node;
+                   if(isempty())
+                   {
+                       
+                   }
+                   else
+                   if(tail==tail->next)
+                   {
+                       
+                   }
+                   else
+                   {
+		temp1 = tail->next;
+		ptr = temp1->next;
+		tail->next = NULL;
+		tail = temp1;
+		while (ptr != NULL)
+		{
+			temp = ptr;
+			ptr = ptr->next;
+			temp->next = temp1;
+			temp1 = temp;
+		}
+		tail->next = temp1;
+                   }  
+             }
+             bool isempty()
+             {  
+                 if(tail==NULL)
+                 {
+                    
+                     return true;
+                 }
+                 else
+                 {
+                    
+                     return false;
+                 }
+             }
+             
 };
 int main()
 {
@@ -200,19 +302,27 @@ int main()
         case 8: 
               cout<<"enter the position where you want to delete the data"<<endl;
               cin>>n3;
-             
+              obj.del_in_pos(n3);
               break;
         case 9:
               cout<<"enter the element you want to search"<<endl;
               cin>>n4;
-             
+              obj.search(n4);
               break;
         case 10:
               cout<<"reversing the following linkedlist"<<endl;
-             
+             obj.reverse();
+             obj.display();
               break;
         case 11:
-             
+             if(obj.isempty())
+             {
+                 cout<<"list is empty"<<endl;
+             }
+             else
+             {
+                 cout<<"list is not empty"<<endl;
+             }
               break;
         default: cout<<"invalid input"<<endl;
     }
