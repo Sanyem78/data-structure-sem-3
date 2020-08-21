@@ -1,0 +1,221 @@
+#include <iostream>
+using namespace std;
+struct node
+{
+  public: int data;
+          node* next;
+};
+class linkedlist
+{
+    private: 
+             node* tail;
+    public:
+    linkedlist()
+    {
+     tail=NULL;
+    }
+             void append(int value)
+             {
+                node* temp=new node;
+                temp->data=value;
+                if(tail==NULL)
+                {
+                    tail=temp;
+                    tail->next=tail;
+                }
+                else
+                {
+                    temp->next=tail->next;
+                    tail->next=temp;
+                    tail=temp;
+                }
+             }
+             void append_in_begin(int value)
+             {
+                 node* temp=new node;
+                 temp->data=value;
+                 if(tail==NULL)
+                 {
+                     tail=temp;
+                     tail->next=tail;
+                 }
+                 else
+                 {
+                     temp->next=tail->next;
+                     tail->next=temp;
+                 }
+             }
+             void append_in_pos(int value,int n)
+             { 
+                 node* temp=new node;
+                 temp->data=value;
+                 if(n==1)
+                 {
+                     append_in_begin(value);
+                 }
+                 else
+                 if(n==no_of_data()+1)
+                 {
+                     append(value);
+                 }
+                 else
+                 {
+                     node* ptr=new node;
+                     ptr=tail->next;
+                     int count=1;
+                     while(count<n-1)
+                     {
+                         ptr=ptr->next;
+                         count++;
+                     }
+                     temp->next=ptr->next;
+                     ptr->next=temp;
+                 }
+             }
+             int no_of_data()
+             {   if(tail==NULL)
+             {
+                 return 0;
+             }
+             else
+             {
+                 node* ptr=new node;
+                 ptr=tail->next;
+                 int count=0;
+                 do{ ptr=ptr->next;
+                     count++;
+                 }while(ptr!=tail->next);
+                 return count;
+             }
+             }
+             void del_at_begin()
+             {
+                 if(tail==NULL)
+                 {
+                     cout<<"list is empty"<<endl;
+                 }
+                 else
+                 if(tail==tail->next)
+                 {   cout<<"deleting item from begining"<<endl;
+                     tail=NULL;
+                 }
+                 else
+                 {
+                     cout<<"deleting item from begining"<<endl;
+                     node* ptr=new node;
+                     ptr=tail->next;
+                     tail->next=ptr->next;
+                     ptr=NULL;
+                 }
+             }
+             void del_at_end()
+             {
+                 if(tail==NULL)
+                 {
+                     cout<<"list is empty"<<endl;
+                 }
+                 else
+                 if(tail==tail->next)
+                 {   cout<<"deleting item from begining"<<endl;
+                     tail=NULL;
+                 }
+                 else
+                 { node* ptr=new node;
+                    ptr = tail;
+			do
+			{
+				ptr = ptr->next;
+			} while (ptr->next != tail);
+			ptr->next = tail->next;
+			delete tail;
+			tail = ptr;
+                 }
+             }
+             void display()
+             {
+                node* ptr=new node;
+                if(tail==NULL)
+                {
+                    cout<<"list is empty"<<endl;
+                }
+                else
+                {   cout<<"your entered linked list is"<<endl;
+                 ptr=tail->next;
+                do
+                {
+                    cout<<ptr->data<<" "<<endl;
+                    ptr=ptr->next;
+                }while(ptr!=tail->next);
+             }
+             }
+};
+int main()
+{
+   linkedlist obj;
+    int pos,choice,n,n1,n2,n3,n4,flag=1;
+ while(flag==1)
+ {  cout<<"press 0 for exit"<<endl;
+    cout<<"press 1 for displaying list"<<endl;
+    cout<<"press 2 for appending list at end"<<endl;
+    cout<<"press 3 for appending list at begin"<<endl;
+    cout<<"press 4 for appending list in between"<<endl;
+    cout<<"press 5 for total no. of data present in list"<<endl;
+    cout<<"press 6 for deleting data at begining"<<endl;
+    cout<<"press 7 for deleting data in the end"<<endl;
+    cout<<"press 8 for deleting data in between"<<endl;
+    cout<<"press 9 for search an element"<<endl;
+    cout<<"press 10 for reversing the linkedlist"<<endl;
+    cout<<"press 11 to check that list is empty or not"<<endl;
+    cin>>choice;
+    switch(choice)
+    {
+        case 0: flag=0;
+                break;
+        case 1: 
+                obj.display();
+                break;
+        case 2:
+                cout<<"enter data "<<endl;
+                cin>>n;
+                obj.append(n);
+                break;
+        case 3: cout<<"enter data to insert at begining"<<endl;
+                cin>>n1;
+                obj.append_in_begin(n1);
+                break;
+        case 4: cout<<"enter the position where you want to insert the data"<<endl;
+                cin>>pos;
+                cout<<"enter the data you want to insert"<<endl;
+                cin>>n2;
+                obj.append_in_pos(n2,pos);
+                break;
+        case 5: cout<<"Total no. of data present in linked list are "<<obj.no_of_data()<<endl;
+                break;
+        case 6: 
+                obj.del_at_begin();
+                break;
+        case 7:
+               obj.del_at_end();
+                break;
+        case 8: 
+              cout<<"enter the position where you want to delete the data"<<endl;
+              cin>>n3;
+             
+              break;
+        case 9:
+              cout<<"enter the element you want to search"<<endl;
+              cin>>n4;
+             
+              break;
+        case 10:
+              cout<<"reversing the following linkedlist"<<endl;
+             
+              break;
+        case 11:
+             
+              break;
+        default: cout<<"invalid input"<<endl;
+    }
+ }
+    return 0;
+}
