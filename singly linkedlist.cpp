@@ -256,10 +256,20 @@ class linkedlist
                      return false;
                  }
              }
+                  void operator +(linkedlist<X> list)
+             {
+                 tail->next=list.head;
+                 tail=list.tail;
+                 display();
+             }
+             
+            
+            
 };
 int main()
-{
+{   int n=0;
    linkedlist<int> obj;
+   linkedlist<int> obj1;
     int choice,flag=1;
    
  while(flag==1)
@@ -275,6 +285,7 @@ int main()
     cout<<"press 9 for search an element"<<endl;
     cout<<"pess 10 for reversing the linkedlist"<<endl;
     cout<<"press 11 to check that list is empty or not"<<endl;
+    cout<<"press 12 to create new list and concatenate with previous list"<<endl;
     cin>>choice;
     switch(choice)
     {
@@ -316,6 +327,19 @@ int main()
               break;
         case 11:
               obj.isempty();
+              break;
+        case 12:
+              cout<<"press 1 for append new list and 2 to stop appending"<<endl;
+              cin>>n; 
+              while(n!=2)
+              {
+              obj1.append();
+              cout<<"press 1 for append new list and 2 to stop appending"<<endl;
+              cin>>n; 
+              }
+              obj1.display();
+              cout<<"concatng new list with previous list"<<endl;
+              obj+obj1;
               break;
         default: cout<<"invalid input"<<endl;
     }
