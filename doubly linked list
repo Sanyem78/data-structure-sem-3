@@ -141,6 +141,7 @@ class doublylinkedlist
              }
              void del_in_end()
              {
+             
                  if(head==NULL)
                  {
                      cout<<"list is empty"<<endl;
