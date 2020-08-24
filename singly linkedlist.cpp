@@ -1,15 +1,18 @@
 #include <iostream>
 using namespace std;
-struct node
+
+template <typename X>
+class linkedlist
+{   struct node
 {
-  public: int data;
+  public: X data;
           node* next;
 };
-class linkedlist
-{
     private: node* head;
              node* tail;
     public:
+    int pos;
+     X n,n1,n2,n3,n4;
     linkedlist()
     {
      head=NULL;
@@ -28,10 +31,11 @@ class linkedlist
             ptr=temp;
         }
    }
-             void append(int value)
-             {
+             void append()
+             {  cout<<"enter data "<<endl;
+                cin>>n;
                 node* temp=new node;
-                temp->data=value;
+                temp->data=n;
                 temp->next=NULL;
                 if(head==NULL)
                 {
@@ -45,10 +49,11 @@ class linkedlist
                     tail=temp;
                 }
              }
-             void append_at_begin(int value)
-             {
+             void append_at_begin()
+             {   cout<<"enter data to insert at begining"<<endl;
+                cin>>n1;
                  node* temp=new node;
-                 temp->data=value;
+                 temp->data=n1;
                  temp->next=NULL;
                  if(head==NULL)
                  {
@@ -74,26 +79,29 @@ class linkedlist
                  }
                  return count;
              }
-             void append_in_bwn(int n,int val)
-             {
-                if(n==1)
+             void append_in_bwn()
+             {  cout<<"enter the position where you want to insert the data"<<endl;
+                cin>>pos;
+                cout<<"enter the data you want to insert"<<endl;
+                cin>>n2;
+                if(pos==1)
                 {
-                    append_at_begin(val);
+                    append_at_begin();
                 }
                 else
-                if(n==no_of_data()+1)
+                if(pos==no_of_data()+1)
                 {
-                    append(val);
+                    append();
                 }
                 else
                 {
                     node* ptr=new node;
                     node* temp=new node;
-                    temp->data=val;
+                    temp->data=n2;
                     temp->next=NULL;
                     ptr=head;
                     int count=1;
-                    while(count<n-1)
+                    while(count<pos-1)
                     {
                         ptr=ptr->next;
                         count++;
@@ -139,14 +147,15 @@ class linkedlist
                      tail=ptr;
                  }
              }
-             void del_in_bwn(int n)
-             {
-                if(n==1)
+             void del_in_bwn()
+             {      cout<<"enter the position where you want to delete the data"<<endl;
+                 cin>>n3;
+                if(n3==1)
                 {
                     del_at_begin();
                 }
                 else
-                if(n==no_of_data())
+                if(n3==no_of_data())
                 {
                     del_in_end();
                 }
@@ -155,7 +164,7 @@ class linkedlist
                     int count=1;
                     node* ptr=new node;
                     ptr=head;
-                    while(count<n-1)
+                    while(count<n3-1)
                     {   
                         ptr=ptr->next;
                         count++;
@@ -163,8 +172,10 @@ class linkedlist
                     ptr->next=ptr->next->next;
                 }
              }
-             void search(int n)
-             {  if(head==NULL)
+             void search()
+             {   cout<<"enter the element you want to search"<<endl;
+              cin>>n4;
+                 if(head==NULL)
              {
                  cout<<"empty list"<<endl;
              }
@@ -176,7 +187,7 @@ class linkedlist
                 ptr=head;
                 while(ptr!=NULL)
                 {
-                    if(ptr->data==n)
+                    if(ptr->data==n4)
                     {
                         cout<<"element found at "<<count<<" position"<<endl;
                         flag=1;
@@ -214,22 +225,23 @@ class linkedlist
                 }
              }
              void reverse()
-             {
-                  node* current = head; 
-                 node *prev = NULL, *n = NULL; 
-  
-        while (current != NULL) { 
-             
-            n = current->next; 
-  
-             
-            current->next = prev; 
-  
-         
-            prev = current; 
-            current = n; 
-        } 
-        head = prev; 
+             {  node* ptr=new node;
+             node* temp=new node;
+                 if (!isempty())
+	{
+		ptr = head->next;
+		head->next = NULL;
+		tail = head;
+		while (ptr != NULL)
+		{
+			temp = ptr;
+			ptr = ptr->next;
+			temp->next = head;
+			head = temp;
+		}
+		
+	}
+
              }
              bool isempty()
              {
@@ -247,8 +259,9 @@ class linkedlist
 };
 int main()
 {
-   linkedlist obj;
-    int pos,choice,n,n1,n2,n3,n4,flag=1;
+   linkedlist<int> obj;
+    int choice,flag=1;
+   
  while(flag==1)
  {  cout<<"press 0 for exit"<<endl;
     cout<<"press 1 for displaying list"<<endl;
@@ -271,19 +284,14 @@ int main()
                 obj.display();
                 break;
         case 2:
-                cout<<"enter data "<<endl;
-                cin>>n;
-                obj.append(n);
+            
+                obj.append();
                 break;
-        case 3: cout<<"enter data to insert at begining"<<endl;
-                cin>>n1;
-                obj.append_at_begin(n1);
+        case 3: 
+                obj.append_at_begin();
                 break;
-        case 4: cout<<"enter the position where you want to insert the data"<<endl;
-                cin>>pos;
-                cout<<"enter the data you want to insert"<<endl;
-                cin>>n2;
-                obj.append_in_bwn(pos,n2);
+        case 4: 
+                obj.append_in_bwn();
                 break;
         case 5: cout<<obj.no_of_data()<<endl;
                 break;
@@ -294,14 +302,12 @@ int main()
                 obj.del_in_end();
                 break;
         case 8: 
-              cout<<"enter the position where you want to delete the data"<<endl;
-              cin>>n3;
-              obj.del_in_bwn(n3);
+              
+              obj.del_in_bwn();
               break;
         case 9:
-              cout<<"enter the element you want to search"<<endl;
-              cin>>n4;
-              obj.search(n4);
+             
+              obj.search();
               break;
         case 10:
               cout<<"reversing the following linkedlist"<<endl;
