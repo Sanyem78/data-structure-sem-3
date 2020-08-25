@@ -1,0 +1,172 @@
+#include <iostream>
+using namespace std;
+class oll
+{
+  struct node
+  { public:
+    int data;
+    node* next;
+  };
+  private: node* head;
+           node* tail;
+  public: 
+  oll()
+  {
+      head=NULL;
+      tail=NULL;
+  }
+   void insert(int n)
+  {
+      node* temp=new node;
+      temp->data=n;
+      temp->next=NULL;
+      if(head==NULL)
+      {
+          head=temp;
+          tail=temp;
+      }
+      else
+      if(temp->data>tail->data)
+      {
+          tail->next=temp;
+          tail=temp;
+      }
+      else
+      if(temp->data<head->data)
+      {
+          temp->next=head;
+          head=temp;
+      }
+      else
+      {
+          node* ptr=new node;
+          ptr=head;
+          int count=1;
+          while(ptr->data>temp->data)
+          {
+              ptr=ptr->next;
+              count++;
+          }
+          append_in_bwn(count,n);
+      }
+  }
+   void append_in_bwn(int pos,int n)
+  {
+      node* ptr=new node;
+      node* temp=new node;
+      temp->data=n;
+      temp->next=NULL;
+      ptr=head;
+      int count=1;
+      while(count<pos-1)
+    {
+        ptr=ptr->next;
+        count++;
+    }
+        temp->next=ptr->next;
+        ptr->next=temp;
+  }
+  void display()
+  {   node* ptr=new node;
+      cout << "\n\t";
+		if (head == NULL)
+			cout << "Linked list is empty";
+		ptr = head;
+		while (ptr != NULL)
+		{
+			if (ptr != head)
+				cout << " -> ";
+			cout << ptr->data;
+			ptr = ptr->next;
+		}
+		cout << endl;
+  }
+  void add(oll func,oll func1)
+  {
+       node* ptr1=new node;
+     ptr1=func.head;
+     node* ptr2=new node;
+     ptr2=func1.head;
+      while(ptr1&&ptr2)
+     {
+     if(ptr1->data>ptr2->data)
+     {
+         insert(ptr2->data);
+         ptr2=ptr2->next;
+     }
+     else
+     if(ptr1->data<ptr2->data)
+     {
+         insert(ptr1->data);
+         ptr1=ptr1->next;
+     }
+     else
+     {
+         insert(ptr1->data);
+         ptr1=ptr1->next;
+         ptr2=ptr2->next;
+     }
+     }
+     if(ptr1==NULL)
+     {
+         while(ptr2!=NULL)
+         {
+             insert(ptr2->data);
+             ptr2=ptr2->next;
+         }
+     }
+     else
+     if(ptr2==NULL)
+     {
+         while(ptr1!=NULL)
+         {
+             insert(ptr1->data);
+             ptr1=ptr1->next;
+         }
+     }
+  }
+};
+int main()
+{
+    oll obj;
+    oll obj1;
+    oll obj2;
+    int choice,flag=1;
+   int n,n1,n2;
+ while(flag==1)
+ {  cout<<"press 0 for exit"<<endl;
+    cout<<"press 1 for displaying ordered linked list"<<endl;
+    cout<<"press 2 for appending ordered linked list"<<endl;
+    cout<<"press 3 for creating new ordered linked list"<<endl;
+    cin>>choice;
+    switch(choice)
+    {
+        case 0: flag=0;
+                break;
+        case 1: 
+                obj.display();
+                break;
+        case 2:
+                cout<<"enter the data"<<endl;
+                cin>>n1;
+                obj.insert(n1);
+                break;
+        case 3:  cout<<"press 1 for append new function and 2 to stop appending"<<endl;
+              cin>>n; 
+              while(n!=2)
+              { cout<<"enter the data"<<endl;
+                cin>>n1;
+              obj1.insert(n1);
+              cout<<"press 1 for append new function and 2 to stop appending"<<endl;
+              cin>>n; 
+              }
+              obj1.display();
+              cout<<"adding both function"<<endl;
+              obj2.add(obj,obj1);
+              obj2.display();
+              break;
+        default: cout<<"invalid input"<<endl;
+    }
+ }
+    return 0;
+}
