@@ -1,0 +1,210 @@
+#include <iostream>
+using namespace std;
+class poly
+{
+  struct node
+  { public:
+    int coeff,power;
+    node* next;
+  };
+  private: node* head;
+           node* tail;
+  public: 
+  poly()
+  {
+      head=NULL;
+      tail=NULL;
+  }
+  void insert(int n1,int n2)
+  {
+      node* temp=new node;
+      temp->power=n2;
+      temp->coeff=n1;
+      temp->next=NULL;
+      if(head==NULL)
+      {
+          head=temp;
+          tail=temp;
+      }
+      else
+      if(temp->power>tail->power)
+      {
+          tail->next=temp;
+          tail=temp;
+      }
+      else
+      if(temp->power<head->power)
+      {
+          temp->next=head;
+          head=temp;
+      }
+      else
+      {
+          node* ptr=new node;
+          ptr=head;
+          int count=1;
+          while(ptr->power>temp->power)
+          {
+              ptr=ptr->next;
+              count++;
+          }
+          append_in_bwn(count,n1,n2);
+      }
+  }
+  void append_in_bwn(int pos,int n1,int n2)
+  {
+      node* ptr=new node;
+      node* temp=new node;
+      temp->coeff=n1;
+      temp->power=n2;
+      temp->next=NULL;
+      ptr=head;
+      int count=1;
+      while(count<pos-1)
+    {
+        ptr=ptr->next;
+        count++;
+    }
+        temp->next=ptr->next;
+        ptr->next=temp;
+  }
+  void display()
+  {   
+      if(head==NULL)
+      {
+          cout<<"0"<<endl;
+      }
+      else
+      {  node*ptr=new node;
+          ptr = head;
+		while (ptr != NULL)
+		{
+			if (ptr != head)
+				cout << " + ";
+			if (ptr->power == 0)
+				cout << ptr->coeff;
+			else
+				cout << ptr->coeff << "x^" << ptr->power;
+			ptr = ptr->next;
+		}
+		cout<<endl;
+      }
+  }
+  void add(poly func,poly func1)
+  {   
+     node* ptr1=new node;
+     ptr1=func.head;
+     node* ptr2=new node;
+     ptr2=func1.head;
+     while(ptr1&&ptr2)
+     {
+     if(ptr1->power>ptr2->power)
+     {
+         insert(ptr1->coeff,ptr1->power);
+         ptr1=ptr1->next;
+     }
+     else
+     if(ptr1->power<ptr2->power)
+     {
+         insert(ptr2->coeff,ptr2->power);
+         ptr2=ptr2->next;
+     }
+     else
+     {
+         insert(ptr1->coeff+ptr2->coeff,ptr1->power);
+         ptr1=ptr1->next;
+         ptr2=ptr2->next;
+     }
+     }
+     if(ptr1==NULL)
+     {
+         while(ptr2!=NULL)
+         {
+             insert(ptr2->coeff,ptr2->power);
+             ptr2=ptr2->next;
+         }
+     }
+     else
+     if(ptr2==NULL)
+     {
+         while(ptr1!=NULL)
+         {
+             insert(ptr1->coeff,ptr1->power);
+             ptr1=ptr1->next;
+         }
+     }
+     
+  }
+   void reverse()
+             {  node* ptr=new node;
+             node* temp=new node;
+                 if (head!=NULL)
+	{
+		ptr = head->next;
+		head->next = NULL;
+		tail = head;
+		while (ptr != NULL)
+		{
+			temp = ptr;
+			ptr = ptr->next;
+			temp->next = head;
+			head = temp;
+		}
+		
+	}
+
+             }
+};
+int main()
+{
+    poly obj;
+    poly obj1;
+    poly obj2;
+    int choice,flag=1;
+   int n,n1,n2;
+ while(flag==1)
+ {  cout<<"press 0 for exit"<<endl;
+    cout<<"press 1 for displaying polynomial function"<<endl;
+    cout<<"press 2 for appending polynomial function"<<endl;
+    cout<<"press 3 for creating new polynomial function"<<endl;
+    cout<<"press 4 to arrange the polynomial function in decreasing order"<<endl;
+    cin>>choice;
+    switch(choice)
+    {
+        case 0: flag=0;
+                break;
+        case 1: 
+                obj.display();
+                break;
+        case 2:
+                cout<<"enter the coefficient of polynomial"<<endl;
+                cin>>n1;
+                cout<<"enter the power of polynomial"<<endl;
+                cin>>n2;
+                obj.insert(n1,n2);
+                break;
+        case 3:  cout<<"press 1 for append new function and 2 to stop appending"<<endl;
+              cin>>n; 
+              while(n!=2)
+              { cout<<"enter the coefficient of polynomial"<<endl;
+                cin>>n1;
+                cout<<"enter the power of polynomial"<<endl;
+                cin>>n2;
+              obj1.insert(n1,n2);
+              cout<<"press 1 for append new function and 2 to stop appending"<<endl;
+              cin>>n; 
+              }
+              obj1.reverse();
+              obj1.display();
+              cout<<"adding both function"<<endl;
+              obj2.add(obj,obj1);
+              obj2.reverse();
+              obj2.display();
+              break;
+        case 4: obj.reverse();
+                break;
+        default: cout<<"invalid input"<<endl;
+    }
+ }
+    return 0;
+}
