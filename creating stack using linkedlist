@@ -1,0 +1,139 @@
+#include <iostream>
+using namespace std;
+
+template <typename X>
+class stack_sll
+{   struct node
+{
+  public: X data;
+          node* next;
+};
+    private: node* head;
+    public: 
+    X n1;
+    stack_sll()
+    {
+     head=NULL;
+    }
+    void clear()
+    {  cout<<"clearing stack"<<endl;
+        node* ptr=new node;
+        node* temp=new node;
+        ptr=head;
+        while(ptr!=NULL)
+        {
+            temp=ptr->next;
+            delete ptr;
+            ptr=temp;
+        }
+       head=NULL;
+   }
+   void push()
+   {
+       cout<<"enter data to push in the stack"<<endl;
+                cin>>n1;
+                 node* temp=new node;
+                 temp->data=n1;
+                 temp->next=NULL;
+                 if(head==NULL)
+                 {
+                     head=temp;
+                     temp=NULL;
+                 }
+                 else
+                 {
+                     temp->next=head;
+                     head=temp;
+                 }
+   }
+   void pop()
+   {
+       if(head==NULL)
+               {
+                   cout<<"stack is empty"<<endl;
+               }
+               else
+               {   cout<<"poping top element from the stack"<<endl;
+                   node* ptr=new node;
+                   ptr=head;
+                   head=ptr->next;
+                   ptr=NULL;
+               }
+   }
+   void top_ele()
+   {   cout<<"top element of stack is: ";
+       cout<<head->data<<endl;
+   }
+   bool isempty()
+             {
+                 if(head==NULL)
+                 {
+                     cout<<"stack is empty"<<endl;
+                     return true;
+                 }
+                 else
+                 {
+                     cout<<"stack is not empty"<<endl;
+                     return false;
+                 }
+             }
+     void display()
+             {
+                node* ptr=new node;
+                ptr=head;
+                if(head==NULL)
+                {
+                    cout<<"stack is empty"<<endl;
+                }
+                else
+                {   cout<<"your entered stack is"<<endl;
+                while(ptr!=NULL)
+                {
+                    cout<<ptr->data<<" "<<endl;
+                    ptr=ptr->next;
+                }
+                }
+             }
+};
+int main()
+{   int n=0;
+   stack_sll<int> obj;
+    int choice,flag=1;
+   
+ while(flag==1)
+ {  cout<<"press 0 for exit"<<endl;
+    cout<<"press 1 for displaying stack"<<endl;
+    cout<<"press 2 for pushing data in the stack"<<endl;
+    cout<<"press 3 for poping data from the stack"<<endl;
+    cout<<"press 4 for printing top element of the stack"<<endl;
+    cout<<"press 5 to check that stack is empty or not"<<endl;
+    cout<<"press 6 for clearing the stack"<<endl;
+    cin>>choice;
+    switch(choice)
+    {
+        case 0: flag=0;
+                break;
+        case 1: 
+                obj.display();
+                break;
+        case 2:
+            
+                obj.push();
+                break;
+        case 3: 
+                obj.pop();
+                break;
+        case 4: 
+                obj.top_ele();
+                break;
+        case 5:
+              obj.isempty();
+              break;
+        case 6:
+              obj.clear();
+              break;
+        default: cout<<"invalid input"<<endl;
+    }
+ }
+    return 0;
+}
