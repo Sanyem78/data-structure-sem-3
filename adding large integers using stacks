@@ -1,0 +1,158 @@
+#include <iostream>
+using namespace std;
+
+template <typename X>
+class stack_sll
+{   struct node
+{
+  public: X data;
+          node* next;
+};
+    private: node* head;
+    public: 
+    X n1;
+    stack_sll()
+    {
+     head=NULL;
+    }
+    void push(int x)
+   {
+       
+                 node* temp=new node;
+                 temp->data=x;
+                 temp->next=NULL;
+                 if(head==NULL)
+                 {
+                     head=temp;
+                     temp=NULL;
+                 }
+                 else
+                 {
+                     temp->next=head;
+                     head=temp;
+                 }
+   }
+   void pop()
+   {
+       if(head==NULL)
+               {
+                   cout<<"stack is empty"<<endl;
+               }
+               else
+               {   cout<<"poping top element from the stack"<<endl;
+                   node* ptr=new node;
+                   ptr=head;
+                   head=ptr->next;
+                   ptr=NULL;
+               }
+   }
+             void add(stack_sll<X> obj1,stack_sll<X> obj2)
+             {
+                 int carry=0;
+                 int a,b,c;
+                 node* ptr1=new node;
+                 ptr1=obj1.head;
+                 node* ptr2=new node;
+                 ptr2=obj2.head;
+                 while(ptr1!=NULL && ptr2!=NULL)
+                 {  
+                     b=ptr1->data+ptr2->data;
+                      c=b%10;
+                       a=c+carry;
+                      carry=(b)/10;
+                     push(a);
+                     ptr1=ptr1->next;
+                     ptr2=ptr2->next;
+                 }
+                 if(ptr1==NULL)
+                 {
+                     while(ptr2!=NULL)
+                     {
+                         push(ptr2->data+carry);
+                         carry=carry/10;
+                         ptr2=ptr2->next;
+                     }
+                 }
+                 else
+                 if(ptr2==NULL)
+                 {
+                     while(ptr1!=NULL)
+                     {
+                         
+                             push(ptr1->data+carry);
+                             carry=carry/10;
+                             ptr1=ptr1->next;
+                         
+                     }
+                 }
+                    display();
+             }
+             void display()
+             {
+                node* ptr=new node;
+                ptr=head;
+                if(head==NULL)
+                {
+                    cout<<"stack is empty"<<endl;
+                }
+                else
+                {   cout<<"your resultant integer is"<<endl;
+                while(ptr!=NULL)
+                {
+                    cout<<ptr->data<<" ";
+                    ptr=ptr->next;
+                }
+                }
+                cout<<endl;
+             }
+};
+int main()
+{   int n=0,n1,n2,rem,reversedNumber1=0,rem1=0,reversedNumber2=0;
+   stack_sll<int> obj,obj1,obj2,obj3;
+    int choice,flag=1;
+   
+ while(flag==1)
+ {  cout<<"press 0 for exit"<<endl;
+    cout<<"press 1 to add two large integers using stack"<<endl;
+    cin>>choice;
+    switch(choice)
+    {
+        case 0: flag=0;
+                break;
+    
+        case 1:
+              cout<<"input 1st integer"<<endl;
+              cin>>n1;
+              while(n1 != 0) {
+        rem = n1%10;
+        reversedNumber1 = reversedNumber1*10 + rem;
+        n1 /= 10;
+    }
+  while(reversedNumber1!=0)
+  {
+    obj1.push(reversedNumber1%10);
+    reversedNumber1=reversedNumber1/10;
+  }
+  
+
+              cout<<"input 2nd integer"<<endl;
+              cin>>n2;
+               while(n2 != 0) {
+        rem1 = n2%10;
+        reversedNumber2 = reversedNumber2*10 + rem1;
+        n2 /= 10;
+    }
+  while(reversedNumber2!=0)
+  {
+    obj2.push(reversedNumber2%10);
+    reversedNumber2=reversedNumber2/10;
+  }
+  
+              obj3.add(obj1,obj2);
+              break;
+        default: cout<<"invalid input"<<endl;
+        
+    }
+ }
+    return 0;
+}
