@@ -1,0 +1,126 @@
+#include <iostream>
+#include <cstdlib>
+using namespace std;
+template <typename X>
+class stack_array
+{    public:
+   int top=-1;
+   int n=0;
+    X* arr;
+    void size(int size)
+    {   n=size;
+        arr=new X[size];
+        cout<<"size of array is "<<n<<endl;
+    }
+    void clear()
+    {
+        delete[] arr;
+        top=-1;
+    }
+    void push()
+    {
+        if(top>=n-1)
+        {
+            cout<<"stack is full"<<endl;
+        }
+        else
+        {   cout<<"enter the data u want to push in stack"<<endl;
+            
+            
+                top++;
+                cin>>arr[top];
+            
+        }
+    }
+    void pop()
+    {
+        if(top==-1)
+        {
+            cout<<"stack is empty"<<endl;
+        }
+        else
+        {   cout<<"deleting topmost item from the stack"<<endl;
+            top--;
+            
+        }
+    }
+    void top_ele()
+    {   cout<<"printint topmost element from the stack"<<endl;
+        cout<<arr[top]<<endl;
+    }
+    void display()
+    {  if(isempty())
+    {
+        
+    }
+    else
+    {
+        int a=top;
+        for(int i=0;i<=top;i++)
+        {
+            cout<<arr[a]<<endl;
+            a--;
+        }
+    }
+    }
+    bool isempty()
+    {
+        if(top==-1)
+        {
+            cout<<"stack is empty"<<endl;
+            return true;
+        }
+        else
+        {
+            cout<<"stack is not empty"<<endl;
+            return false;
+        }
+    }
+};
+int main()
+{   stack_array<int> obj;
+    int n;
+    cout<<"enter the size of stack"<<endl;
+    cin>>n;
+    obj.size(n);
+    int choice,flag=1;
+   
+ while(flag==1)
+ {  cout<<"press 0 for exit"<<endl;
+    cout<<"press 1 for displaying stack"<<endl;
+    cout<<"press 2 for pushing data in the stack"<<endl;
+    cout<<"press 3 for poping data from the stack"<<endl;
+    cout<<"press 4 for printing top element of the stack"<<endl;
+    cout<<"press 5 to check that stack is empty or not"<<endl;
+    cout<<"press 6 for clearing the stack"<<endl;
+    cin>>choice;
+    switch(choice)
+    {
+        case 0: flag=0;
+                break;
+        case 1: 
+                obj.display();
+                break;
+        case 2:
+            
+                obj.push();
+                break;
+        case 3: 
+                obj.pop();
+                break;
+        case 4: 
+                obj.top_ele();
+                break;
+        case 5:
+              obj.isempty();
+              break;
+        case 6:
+              obj.clear();
+              break;
+        default: cout<<"invalid input"<<endl;
+        
+    }
+ }
+    return 0;
+}
+    
