@@ -133,6 +133,7 @@ int main()
               obj.clear();
               break;
         default: cout<<"invalid input"<<endl;
+        
     }
  }
     return 0;
