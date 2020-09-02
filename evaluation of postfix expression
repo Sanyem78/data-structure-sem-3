@@ -1,62 +1,80 @@
-#include<iostream>
-#include<conio.h>
-#include<ctype.h>
+#include <iostream>
+#include <cstdlib>
 using namespace std;
-class Evaluation {
-	public:
-		int st[50];
-		int top;
-		char str[50];
-		Evaluation() {
-			top = -1;
-		}
+class stack_array
+{    public:
+   int top=-1;
+   int z;
+    stack_array()
+    {
+      int top=-1;
+    }
+    int arr[50];
+    
+   
+    void push(int x)
+    {
+                top++;
+                arr[top]=x;
+    }
+    int pop()
+    {       z=arr[top];
+            top--;
+            return z;
+    }
+    bool isoperator(char C)
+    {
+        if(C == '+' || C == '-' || C == '*' || C == '/')
+		return true;
 
-		void push(int item) {
-			top++;
-			st[top] = item;
-		}
-
-		int pop() {
-			int item = st[top];
-			top--;
-			return item;
-		}
-
-		int operation(int a,int b,char opr) {
-			switch(opr) {
-				case '+':return a+b;
-				case '-':return a-b;
-				case '*':return a*b;
-				case '/':return a/b;
-				default: return 0;
-			}
-		}
-
-		int calculatePostfix();
+    	return false;
+    }
+    int eval(string expression)
+    {
+        for(int i=0;i<expression.length();i++)
+        {   if(expression[i]==' ')
+                 continue;
+            else if(isoperator(expression[i]))
+            {
+                 int x=pop();
+                 int y=pop();
+                 switch(expression[i])
+                 {
+                     case '*' : push(y*x);
+                                break;
+                     case '+' : push(y+x);
+                                break;
+                     case '-' : push(y-x);
+                                break;
+                     case '/' : push(y/x);
+                                break;
+                     case '%' : push(y%x);
+                                break;
+                 }
+            }
+            else if(expression[i]>='0' && expression[i]<='9')
+            {
+                int j=0;
+                while((expression[i]>='0' && expression[i]<='9'))
+                {
+                    j=j*10+(expression[i]-'0');
+                    i++;
+                }
+                i--;
+                push(j);
+            }
+        }
+        return pop();
+    }
 };
-int Evaluation::calculatePostfix() {
-	int index = 0;
-	while(str[index]!=NULL) {
-		if(isdigit(str[index])) {
-			push(str[index]-'0');
-		}
-		else {
-			int x = pop();
-			int y = pop();
-			int result = operation(x,y,str[index]);
-			push(result);
-		}
-		index++;
-	}
-	return pop();
-}
-
-int main() {
-	void clrscr();
-	Evaluation eval;
-	cout << "Enter the postfix: ";
-	cin >> eval.str;
-	int result = eval.calculatePostfix();
-	cout << "the result is " << result;
-	return 0;
+int main()
+{   stack_array obj;
+    string expression,express;
+    cout<<"write the expression"<<endl;
+     getline(cin,express);
+    int result=obj.eval(express);
+     cout<<"result of expression is "<<result<<endl;
+    
+    
+    return 0;
 }
