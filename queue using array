@@ -1,0 +1,140 @@
+#include <iostream>
+#include <cstdlib>
+using namespace std;
+template <typename X>
+class queue_array
+{    public:
+   int front=-1;
+   int rear=-1;
+   int n=0;
+    X* arr;
+    void size(int size)
+    {   n=size;
+        arr=new X[size];
+        cout<<"size of queue is "<<n<<endl;
+    }
+    void clear()
+    {
+        delete[] arr;
+        front=-1;
+        rear=-1;
+    }
+    void enqueue()
+    {   if(front==-1)
+        {
+           front=0;
+           cout<<"enter the data u want to enqueue"<<endl;
+                ++rear;
+                cin>>arr[rear];
+        }
+    else if(rear>=n-1)
+        {
+            cout<<"queue is full"<<endl;
+        }
+        else
+        {   cout<<"enter the data u want to enqueue"<<endl;
+                ++rear;
+                cin>>arr[rear];
+        }
+    }
+    void dequeue()
+    {
+        if(front==-1)
+        {
+            cout<<"queue is empty"<<endl;
+        }
+        else
+        if(front>rear)
+        {
+            cout<<"queue is empty"<<endl;
+        }
+        else
+        {   cout<<"deleting topmost element from the queue"<<endl;
+            front++;
+        }
+    }
+    int top_ele()
+    {   cout<<"print first element from the queue"<<endl;
+        return arr[front];
+    }
+    void display()
+    {  if(isempty())
+    {
+        cout<<"queue is empty"<<endl;
+    }
+    else
+    {
+        int a=front;
+        for(int i=a;i<=rear;i++)
+        {
+            cout<<arr[a]<<" ";
+            a++;
+        }
+    }
+    cout<<endl;
+    }
+    bool isempty()
+    {
+        if(front==-1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+};
+int main()
+{   int n=0;
+   queue_array<int> obj;
+    cout<<"enter the size of queue"<<endl;
+    cin>>n;
+    obj.size(n);
+    int choice,flag=1;
+   
+ while(flag==1)
+ {  cout<<"press 0 for exit"<<endl;
+    cout<<"press 1 for displaying queue"<<endl;
+    cout<<"press 2 for enqueuing"<<endl;
+    cout<<"press 3 for dequeuing"<<endl;
+    cout<<"press 4 for printing top element of the queue"<<endl;
+    cout<<"press 5 to check that queue is empty or not"<<endl;
+    cout<<"press 6 for clearing the queue"<<endl;
+    cin>>choice;
+    switch(choice)
+    {
+        case 0: flag=0;
+                break;
+        case 1: 
+                obj.display();
+                break;
+        case 2:
+            
+                obj.enqueue();
+                break;
+        case 3: 
+                obj.dequeue();
+                break;
+        case 4: 
+                cout<<obj.top_ele()<<endl;
+                break;
+        case 5:
+              if(obj.isempty())
+              {
+                cout<<"queue is empty"<<endl;    
+              }
+              else
+              {
+                  cout<<"queue is not empty"<<endl;
+              }
+              break;
+        case 6:
+              obj.clear();
+              break;
+        default: cout<<"invalid input"<<endl;
+        
+    }
+ }
+    return 0;
+}
