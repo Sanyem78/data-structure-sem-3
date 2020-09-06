@@ -12,10 +12,13 @@ class queue_sll
              node* rear;
     public: 
     X n1;
+    int n=0,count;
     queue_sll()
     {
      front=NULL;
      rear=NULL;
+     cout<<"enter the size of the queue"<<endl;
+     cin>>n;
     }
     void clear()
     {  cout<<"clearing stack"<<endl;
@@ -41,18 +44,35 @@ class queue_sll
                  {
                      front=temp;
                      rear=temp;
+                     count++;
+                 }
+                 else if(count>=n)
+                 {
+                     cout<<"queue is full "<<endl;
                  }
                  else
                  {
                      rear->next=temp;
                      rear=temp;
+                     count++;
                  }
    }
    void dequeue()
-   {
+   {  node* temp=new node;
        if(isempty())
                {
                    cout<<"queue is empty"<<endl;
+               }
+               else if(front==rear)
+               {
+                   cout<<"dequeuing"<<endl;
+                   cout<<"queue is full no further enqueuing and dequeuing is possible"<<endl;
+                   front=temp;
+                   rear=temp;
+               }
+               else if(front==temp)
+               {
+                   cout<<"queue is full and cannot be dequeued"<<endl;
                }
                else
                {   cout<<"dequeuing"<<endl;
