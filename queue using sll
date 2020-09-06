@@ -69,11 +69,9 @@ class queue_sll
                    cout<<"queue is full no further enqueuing and dequeuing is possible"<<endl;
                    front=temp;
                    rear=temp;
+                   exit(-1);
                }
-               else if(front==temp)
-               {
-                   cout<<"queue is full and cannot be dequeued"<<endl;
-               }
+               
                else
                {   cout<<"dequeuing"<<endl;
                    node* ptr=new node;
