@@ -1,0 +1,176 @@
+#include <iostream>
+using namespace std;
+
+template <typename X>
+class queue_sll
+{   struct node
+{
+  public: X data;
+          node* next;
+};
+    private: node* front;
+             node* rear;
+    public: 
+    X n1;
+    int n=0,count;
+    queue_sll()
+    {
+     front=NULL;
+     rear=NULL;
+     cout<<"enter the size of the queue"<<endl;
+     cin>>n;
+    }
+    void clear()
+    {  node* ptr=new node();
+        node* temp=new node();
+        if (!isempty())
+		{  
+			cout << "clearing queue"<<endl;
+			ptr = rear->next;
+			rear->next = NULL;
+			while (ptr != NULL)
+			{
+				temp = ptr->next;
+				delete ptr;
+				ptr = temp;
+			}
+		   	 front=NULL;
+		     rear=NULL;
+		     count=0;
+		}
+	
+   }
+   void enqueue()
+   {
+       cout<<"enter data to enqueue"<<endl;
+                cin>>n1;
+                 node* temp=new node;
+                 temp->data=n1;
+                 temp->next=NULL;
+                 if(isempty())
+                 {
+                     front=temp;
+                     temp->next=front;
+                     rear=front;
+                     count++;
+                 }
+                 else if(count>=n)
+                 {
+                     cout<<"queue is full "<<endl;
+                 }
+                 else
+                 {   temp->next=rear->next;
+                     rear->next=temp;
+                     rear=temp;
+                     count++;
+                 }
+   }
+   void dequeue()
+   {  
+       if(isempty())
+               {
+                   cout<<"queue is empty"<<endl;
+               }
+               else
+               if(front==front->next)
+               {
+                   cout<<"dequeuing first element"<<endl;
+                   rear=NULL;
+                   front=NULL;
+                   count--;
+               }
+               else
+               {   cout<<"dequeuing"<<endl;
+                   node* ptr=new node;
+                     ptr=front;
+                     front=ptr->next;
+                     rear->next=front;
+                     ptr=NULL;
+                     count--;
+               }
+   }
+   int top_ele()
+   {   cout<<"first element of queue is: ";
+       return front->data;
+   }
+   bool isempty()
+             {
+                 if(front==NULL)
+                 {
+                     return true;
+                 }
+                 else
+                 {
+                     return false;
+                 }
+             }
+     void display()
+             {
+                node* ptr=new node;
+                ptr=front;
+                if(isempty())
+                {
+                    cout<<"queue is empty"<<endl;
+                }
+                else
+                {   cout<<"your entered queue is"<<endl;
+                 ptr=rear->next;
+                do
+                {
+                    cout<<ptr->data<<" ";
+                    ptr=ptr->next;
+                }while(ptr!=rear->next);
+                }
+                cout<<endl;
+             }
+};
+int main()
+{   int n=0;
+   queue_sll<int> obj;
+    int choice,flag=1;
+   
+ while(flag==1)
+ {  cout<<"press 0 for exit"<<endl;
+    cout<<"press 1 for displaying queue"<<endl;
+    cout<<"press 2 for enqueuing"<<endl;
+    cout<<"press 3 for dequeuing"<<endl;
+    cout<<"press 4 for printing top element of the queue"<<endl;
+    cout<<"press 5 to check that queue is empty or not"<<endl;
+    cout<<"press 6 for clearing the queue"<<endl;
+    cin>>choice;
+    switch(choice)
+    {
+        case 0: flag=0;
+                break;
+        case 1: 
+                obj.display();
+                break;
+        case 2:
+            
+                obj.enqueue();
+                break;
+        case 3: 
+                obj.dequeue();
+                break;
+        case 4: 
+                cout<<obj.top_ele()<<endl;
+                break;
+        case 5:
+              if(obj.isempty())
+              {
+                cout<<"queue is empty"<<endl;    
+              }
+              else
+              {
+                  cout<<"queue is not empty"<<endl;
+              }
+              break;
+        case 6:
+              obj.clear();
+              break;
+        default: cout<<"invalid input"<<endl;
+        
+    }
+ }
+    return 0;
+}
