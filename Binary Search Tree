@@ -1,0 +1,122 @@
+#include <iostream>
+using namespace std;
+class bst
+{   
+    struct node
+{
+  public: int data;
+          node* right;
+          node* left;
+};
+    public: node* root;
+    
+    bst()
+    {
+        root=NULL;
+    }
+    void insert(int a)
+    {   node* ptr=new node;
+        node* p=new node;
+        node* p1=new node;
+        ptr->data=a;
+        ptr->right=NULL;
+        ptr->left=NULL;
+        if(root==NULL)
+        {
+            root=ptr;
+        }
+        else
+        {
+            p=root;
+            while(p!=NULL)
+            {
+                if(a<p->data)
+                {
+                    p1=p;
+                    p=p->left;
+                }
+                else
+                {
+                    p1=p;
+                    p=p->right;
+                }
+            }
+            if(a<p1->data)
+            {
+               p1->left=ptr;
+            }
+            else
+            {
+               p1->right=ptr;
+            }
+        }
+    }
+    void rec_inorder(node* ptr)
+    {     if(ptr!=NULL)
+        {
+            rec_inorder(ptr->left);
+            cout<<ptr->data<<" ";
+            rec_inorder(ptr->right);
+        }
+    }
+    void rec_preorder(node* ptr)
+    {
+        if(ptr!=NULL)
+        {
+            cout<<ptr->data<<" ";
+            rec_preorder(ptr->left);
+            rec_preorder(ptr->right);
+        }
+    }
+    void rec_postorder(node* ptr)
+    {   if(ptr!=NULL)
+      {
+        rec_postorder(ptr->left);
+        rec_postorder(ptr->right);
+        cout<<ptr->data<<" ";
+      }
+    }
+};
+int main()
+{   int a;
+    char ch='y';
+    bst obj;
+    do{
+    cout<<"Insert data in BST"<<endl;
+    cin>>a;
+    obj.insert(a);
+    cout<<"Do you want to continue? "<<endl;
+    cin>>ch;
+    }while(ch=='y'||ch=='Y');
+    int choice,flag=1;
+ while(flag==1)
+ {  cout<<"press 0 for exit"<<endl;
+    cout<<"press 1 for recursive Inorder traversal"<<endl;
+    cout<<"press 2 for recursive preorder traversal"<<endl;
+    cout<<"press 3 for recursive postorder traversal"<<endl;
+    cin>>choice;
+    switch(choice)
+    {
+        case 0: 
+                flag=0;
+                break;
+        case 1: 
+                 cout<<"Inorder traversal is "<<endl;
+                 obj.rec_inorder(obj.root);
+                 cout<<endl;
+                 break;
+        case 2:
+                cout<<"Preorder traversal is "<<endl;
+                obj.rec_preorder(obj.root);
+                cout<<endl;
+                break;
+        case 3:
+                cout<<"postorder traversal is "<<endl;
+                obj.rec_postorder(obj.root);
+                cout<<endl;
+                break;
+        default: cout<<"invalid input"<<endl;
+    }
+ }
+    return 0;
+}
