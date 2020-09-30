@@ -76,9 +76,48 @@ class bst
         cout<<ptr->data<<" ";
       }
     }
+    void search(int n)
+    {   int flag=0,i=0;
+        node* ptr=new node;
+        node* ptr1=new node;
+        ptr=root;
+        if(root==NULL)
+        {
+            cout<<"Binary search tree is empty "<<endl;
+        }
+        else
+        {
+            while(ptr!=NULL)
+            {
+                if(n<ptr->data)
+                {
+                    ptr1=ptr;
+                    ptr=ptr->left;
+                    i++;
+                }
+                else
+                if(n==ptr->data)
+                {
+                    cout<<"Your entered data "<<n<<" is present in Binary Search Tree at "<<i<< " th level"<<endl;
+                    flag=1;
+                    break;
+                }
+                else
+                {
+                    ptr1=ptr;
+                    ptr=ptr->right;
+                    i++;
+                }
+            }
+            if(flag==0)
+            {
+            cout<<"Your entered data "<<n<<" is not present in the Binary Search Tree "<<endl;
+            }
+        }
+    }
 };
 int main()
-{   int a;
+{   int a,n;
     char ch='y';
     bst obj;
     do{
@@ -94,6 +133,7 @@ int main()
     cout<<"press 1 for recursive Inorder traversal"<<endl;
     cout<<"press 2 for recursive preorder traversal"<<endl;
     cout<<"press 3 for recursive postorder traversal"<<endl;
+    cout<<"press 4 for searching an element"<<endl;
     cin>>choice;
     switch(choice)
     {
@@ -114,6 +154,11 @@ int main()
                 cout<<"postorder traversal is "<<endl;
                 obj.rec_postorder(obj.root);
                 cout<<endl;
+                break;
+        case 4:
+                cout<<"Enter data you want to search "<<endl;
+                cin>>n;
+                obj.search(n);
                 break;
         default: cout<<"invalid input"<<endl;
     }
