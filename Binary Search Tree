@@ -141,7 +141,7 @@ class bst
             s2.pop();
         }
     }
-    bool search(int n)
+    void search(int n)
     {   int flag=0,i=0;
         node* ptr=new node;
         node* ptr1=new node;
@@ -165,7 +165,6 @@ class bst
                 {
                     cout<<"Your entered data "<<n<<" is present in Binary Search Tree at "<<i<< " th level"<<endl;
                     flag=1;
-                    return true;
                     break;
                 }
                 else
@@ -179,7 +178,6 @@ class bst
             {
             cout<<"Your entered data "<<n<<" is not present in the Binary Search Tree "<<endl;
             }
-            return false;
         }
     }
     void bfs(node* ptr)
@@ -246,6 +244,60 @@ class bst
         cout<<"Total no. of leaves are: "<<i<<endl;
         cout<<"Total no. of non leaves are: "<<j-i<<endl;
     }
+    void rep(int n1,int n2)
+    {
+      int flag=0;
+        node* ptr=new node;
+        node* ptr1=new node;
+        ptr=root;
+        if(root==NULL)
+        {
+            cout<<"Binary search tree is empty "<<endl;
+        }
+        else
+        {
+            while(ptr!=NULL)
+            {
+                if(n1<ptr->data)
+                {
+                    ptr1=ptr;
+                    ptr=ptr->left;
+                }
+                else
+                if(n1==ptr->data)
+                {
+                    //delete(n1);
+                    insert(n2);
+                    flag=1;
+                    break;
+                }
+                else
+                {
+                    ptr1=ptr;
+                    ptr=ptr->right;
+                }
+            }
+            if(flag==0)
+            {
+            cout<<"Your entered data "<<n1<<" is not present in the Binary Search Tree "<<endl;
+            }
+        }  
+    }
+    int height(node* ptr)
+    {    int l,r;
+        if(ptr == NULL)
+             return 0;
+        l=height(ptr->left);
+        r=height(ptr->right);
+        if(l>=r)
+        {
+            return l+1;
+        }
+        else
+        {
+            return r+1;
+        }
+    }
 };
 int main()
 {   int a,n,n1,n2;
@@ -272,6 +324,7 @@ int main()
     cout<<"9 : Mirror image of tree"<<endl;
     cout<<"10: Count the non-leaf, leaf and total number of nodes"<<endl;
     cout<<"11: Search and replace"<<endl;
+    cout<<"12: Height of tree"<<endl;
     cin>>choice;
     switch(choice)
     {
@@ -332,12 +385,13 @@ int main()
         case 11:
                 cout<<"Enter data you want to search"<<endl;
                 cin>>n1;
-                if(obj.search(n1))
-                {   cout<<"Enter data you want to replace"<<endl;
-                    cin>>n2;
-                    obj.insert(n2);
-                }
+                cout<<"Enter data you want to replace"<<endl;
+                cin>>n2;
+                obj.rep(n1,n2);
                 break;
+        case 12:
+               cout<<"Height of tree is: "<<obj.height(obj.root)<<endl;
+               break;
         default: cout<<"invalid input"<<endl;
     }
  }
