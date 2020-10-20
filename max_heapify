@@ -1,4 +1,5 @@
 #include <iostream>
+#include <math.h>
 using namespace std;
 int arr[30],size;
 int l,r,max1;
@@ -7,12 +8,12 @@ void max_heapify(int arr[],int ele,int size)
     l=2*ele;
     r=2*ele+1;
     max1=ele;
-    if(l<size&&arr[ele]<arr[l])
+    if(l<=size&&arr[ele]<arr[l])
     {
         max1=l;
     }
-    if(r<size&&arr[max1]<arr[r])
-    {
+    if(r<=size&&arr[max1]<arr[r])
+    {   
         max1=r;
     }
     if(max1!=ele)
@@ -20,6 +21,14 @@ void max_heapify(int arr[],int ele,int size)
         swap(arr[max1],arr[ele]);
         max_heapify(arr,max1,size);
     }
+}
+void build_max_heap(int arr[],int size)
+{
+       int index=floor(size/2);
+       for(int i=index;i>=1;i--)
+       {
+        max_heapify(arr,i,size);
+       }
 }
 int main()
 {   int size,ele;
@@ -34,7 +43,14 @@ int main()
     cout<<"Enter index you want to apply max heapify"<<endl;
     cin>>ele;
     cout<<"Applying max heapify on element "<<arr[ele]<<endl;
+    if(ele==1)
+    {
+        build_max_heap(arr,size);
+    }
+    else
+    {
     max_heapify(arr,ele,size);
+    }
     cout<<"Priority queue after apply max heapify: "<<endl;
     for(int i=1;i<=size;i++)
     {
