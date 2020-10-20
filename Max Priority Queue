@@ -24,11 +24,11 @@ void max_heapify(int arr[],int ele,int size)
     l=2*ele;
     r=2*ele+1;
     max1=ele;
-    if(l<size&&arr[ele]<arr[l])
+    if(l<=size&&arr[ele]<arr[l])
     {
         max1=l;
     }
-    if(r<size&&arr[max1]<arr[r])
+    if(r<=size&&arr[max1]<arr[r])
     {
         max1=r;
     }
@@ -55,6 +55,14 @@ void ex_max_heap(int arr[],int size)
         max_heapify(arr,1,size);
     }
 }
+void build_max_heap(int arr[],int size)
+{
+       int index=floor(size/2);
+       for(int i=index;i>=1;i--)
+       {
+        max_heapify(arr,i,size);
+       }
+}
 int main()
 {   int size,ele;
     cout<<"Enter size of priority queue"<<endl;
@@ -72,7 +80,7 @@ int main()
     }
     cout<<endl<<endl;
     cout<<"Applying max heapify on element "<<arr[1]<<endl;
-    max_heapify(arr,1,size);
+    build_max_heap(arr,size);
     cout<<"Priority queue after apply max heapify: "<<endl;
     for(int i=1;i<=size;i++)
     {
