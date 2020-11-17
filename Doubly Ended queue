@@ -1,0 +1,247 @@
+#include <iostream>
+using namespace std;
+
+template <typename X>
+class queue_sll
+{   struct node
+{
+  public: X data;
+          node* next;
+};
+    private: node* front;
+             node* rear;
+    public: 
+    X n1;
+    int n=0,count;
+    queue_sll()
+    {
+     front=NULL;
+     rear=NULL;
+     cout<<"enter the size of the doubly ended queue"<<endl;
+     cin>>n;
+    }
+    void clear()
+    {  cout<<"clearing doubly ended queue"<<endl;
+        node* ptr=new node;
+        node* temp=new node;
+        ptr=front;
+        while(ptr!=NULL)
+        {
+            temp=ptr->next;
+            delete ptr;
+            ptr=temp;
+        }
+       front=NULL;
+   }
+   void enqueue()
+   {
+       cout<<"enter data to enqueue"<<endl;
+                cin>>n1;
+                 node* temp=new node;
+                 temp->data=n1;
+                 temp->next=NULL;
+                 if(isempty())
+                 {
+                     front=temp;
+                     rear=temp;
+                     count++;
+                 }
+                 else if(count>=n)
+                 {
+                     cout<<"doubly ended queue is full "<<endl;
+                 }
+                 else
+                 {
+                     rear->next=temp;
+                     rear=temp;
+                     count++;
+                 }
+   }
+   void enqueue_begin()
+   {
+       cout<<"enter data to enqueue"<<endl;
+                cin>>n1;
+                 node* temp=new node;
+                 temp->data=n1;
+                 temp->next=NULL;
+                 if(isempty())
+                 {
+                     front=temp;
+                     rear=temp;
+                     count++;
+                 }
+                 else if(count>=n)
+                 {
+                     cout<<"doubly ended queue is full "<<endl;
+                 }
+                 else
+                 {
+                     temp->next=front;
+                     front=temp;
+                     count++;
+                 }
+   }
+   void dequeue()
+   {  node* temp=new node;
+       if(isempty())
+               {
+                   cout<<"doubly ended queue is empty"<<endl;
+               }
+               else if(front==rear)
+               {
+                   cout<<"dequeuing"<<endl;
+                   cout<<"doubly ended queue is full no further enqueuing and dequeuing is possible"<<endl;
+                   front=temp;
+                   rear=temp;
+                   exit(-1);
+               }
+               
+               else
+               {   cout<<"dequeuing"<<endl;
+                   node* ptr=new node;
+                   ptr=front;
+                   front=ptr->next;
+                   ptr=NULL;
+               }
+   }
+   void dequeue_end()
+   {
+       node* temp=new node;
+       if(isempty())
+               {
+                   cout<<"doubly ended queue is empty"<<endl;
+               }
+               else if(front==rear)
+               {
+                   cout<<"dequeuing"<<endl;
+                   cout<<"doubly ended queue is full no further enqueuing and dequeuing is possible"<<endl;
+                   front=temp;
+                   rear=temp;
+                   exit(-1);
+               }
+               
+               else
+               {   cout<<"dequeuing"<<endl;
+                   node* ptr=new node;
+                   ptr=front;
+                   while(ptr->next->next!=NULL)
+                     {
+                         ptr=ptr->next;
+                     }
+                     ptr->next=NULL;
+                     rear=ptr;
+               }
+   }
+   int top_ele()
+   {   cout<<"first element of doubly ended queue is: ";
+       return front->data;
+   }
+   bool isempty()
+             {
+                 if(front==NULL)
+                 {
+                     return true;
+                 }
+                 else
+                 {
+                     return false;
+                 }
+             }
+     void display()
+             {
+                node* ptr=new node;
+                ptr=front;
+                if(isempty())
+                {
+                    cout<<"doubly ended queue is empty"<<endl;
+                }
+                else
+                {   cout<<"your entered doubly queue is"<<endl;
+                while(ptr!=NULL)
+                {
+                    cout<<ptr->data<<" ";
+                    ptr=ptr->next;
+                }
+                }
+                cout<<endl;
+             }
+};
+int main()
+{   int n=0;
+    int c,c1;
+   queue_sll<int> obj;
+    int choice,flag=1;
+   
+ while(flag==1)
+ {  cout<<"press 0 for exit"<<endl;
+    cout<<"press 1 for displaying doubly ended queue"<<endl;
+    cout<<"press 2 for enqueuing"<<endl;
+    cout<<"press 3 for dequeuing"<<endl;
+    cout<<"press 4 for printing top element of the doubly ended queue"<<endl;
+    cout<<"press 5 to check that doubly ended queue is empty or not"<<endl;
+    cout<<"press 6 for clearing the doubly ended queue"<<endl;
+    cin>>choice;
+    switch(choice)
+    {
+        case 0: flag=0;
+                break;
+        case 1: 
+                obj.display();
+                break;
+        case 2:
+                cout<<"press 1 for append at end"<<endl;
+                cout<<"press 2 for append at begin"<<endl;
+                cin>>c1;
+                if(c1==1)
+                {
+                obj.enqueue();
+                }
+                else
+                if(c1==2)
+                {
+                    obj.enqueue_begin();
+                }
+                else
+                {
+                    cout<<"Invalid input"<<endl;
+                }
+                break;
+        case 3:
+                cout<<"press 1 for Delete from begining"<<endl;
+                cout<<"press 2 for Delete at end"<<endl;
+                cin>>c;
+                if(c==1)
+                {
+                obj.dequeue();
+                }
+                else if(c==2)
+                {
+                obj.dequeue_end();
+                }
+                else
+                {
+                    cout<<"Invalid input"<<endl;
+                }
+                break;
+        case 4: 
+                cout<<obj.top_ele()<<endl;
+                break;
+        case 5:
+              if(obj.isempty())
+              {
+                cout<<"queue is empty"<<endl;    
+              }
+              else
+              {
+                  cout<<"queue is not empty"<<endl;
+              }
+              break;
+        case 6:
+              obj.clear();
+              break;
+        default: cout<<"invalid input"<<endl;
+        
+    }
+ }
+    return 0;
+}
