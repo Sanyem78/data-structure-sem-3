@@ -46,16 +46,6 @@ class Queue
 
     } 
 
-    ~Queue() 
-
-    { 
-
-        clear(); 
-
-    } 
-
-  
-
     bool isempty() 
 
     { 
@@ -78,17 +68,7 @@ class Queue
 
         temp1->next = NULL; 
 
-        if (isfull()) 
-
-        { 
-
-            cout << "Queue overflow!\n"; 
-
-            return; 
-
-        } 
-
-        else if (isempty()) 
+        if (isempty()) 
 
         { 
 
@@ -313,33 +293,63 @@ class bst
                   q.enqueue(temp1); 
 
                 } 
+
             } 
+
             if(n->right!=NULL) 
+
             {   temp2=n->right; 
+
                 if(temp2->left==NULL&&temp2->right==NULL) 
+
                 { 
+
                      
+
                 } 
+
                 else 
+
                 { 
+
                   q.enqueue(temp2); 
+
                 } 
+
             } 
+
         } 
+
     } 
+
 }; 
+
 int main() 
+
 {   int a; 
+
     char ch='y'; 
+
     bst obj; 
+
     do{ 
+
     cout<<"Insert data in BST"<<endl; 
+
     cin>>a; 
+
     obj.insert(a); 
+
     cout<<"Do you want to continue? "<<endl; 
+
     cin>>ch; 
+
     }while(ch=='y'||ch=='Y'); 
+
     cout<<"Internal nodes in the Binary tree in bfs order is: "<<endl; 
+
     obj.internal_node(obj.root); 
+
     return 0; 
+
 } 
