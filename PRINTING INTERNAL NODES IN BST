@@ -1,0 +1,345 @@
+#include <iostream> 
+
+using namespace std; 
+
+template <typename X> 
+
+class Queue 
+
+{ 
+
+    int MAX_SIZE; 
+
+    struct node 
+
+    { 
+
+        X data; 
+
+        struct node *next; 
+
+    }; 
+
+    struct node *front, *rear, *temp; 
+
+  
+
+  public: 
+
+    Queue() 
+
+    { 
+
+        MAX_SIZE = 50; 
+
+        front = rear = NULL; 
+
+    } 
+
+    Queue(int size) 
+
+    { 
+
+        MAX_SIZE = size; 
+
+        front = rear = NULL; 
+
+    } 
+
+    ~Queue() 
+
+    { 
+
+        clear(); 
+
+    } 
+
+  
+
+    bool isempty() 
+
+    { 
+
+        if (front == NULL) 
+
+            return true; 
+
+        return false; 
+
+    } 
+
+    void enqueue(X n) 
+
+    { 
+
+        struct node *temp1 = new node; 
+
+        temp1->data = n; 
+
+        temp1->next = NULL; 
+
+        if (isfull()) 
+
+        { 
+
+            cout << "Queue overflow!\n"; 
+
+            return; 
+
+        } 
+
+        else if (isempty()) 
+
+        { 
+
+            front = rear = temp1; 
+
+            return; 
+
+        } 
+
+        else 
+
+        { 
+
+            rear->next = temp1; 
+
+            rear = temp1; 
+
+        } 
+
+    } 
+
+  
+
+    X dequeue() 
+
+    { 
+
+        X n; 
+
+        if (isempty()) 
+
+        { 
+
+            cout << "Queue underflow!\n"; 
+
+            return 0; 
+
+        } 
+
+        else if (rear == front) 
+
+        { 
+
+            n = front->data; 
+
+            delete front; 
+
+            front = rear = NULL; 
+
+        } 
+
+        else 
+
+        { 
+
+            n = front->data; 
+
+            temp = front; 
+
+            front = front->next; 
+
+            delete temp; 
+
+        } 
+
+        return n; 
+
+    } 
+
+    X peek() 
+
+    { 
+
+        return front->data; 
+
+    } 
+
+}; 
+
+class bst 
+
+{    
+
+    struct node 
+
+{ 
+
+  public: int data; 
+
+          node* right; 
+
+          node* left; 
+
+}; 
+
+    public: node* root; 
+
+     
+
+    bst() 
+
+    { 
+
+        root=NULL; 
+
+    } 
+
+    void insert(int a) 
+
+    {   node* ptr=new node; 
+
+        node* p=new node; 
+
+        node* p1=new node; 
+
+        ptr->data=a; 
+
+        ptr->right=NULL; 
+
+        ptr->left=NULL; 
+
+        if(root==NULL) 
+
+        { 
+
+            root=ptr; 
+
+        } 
+
+        else 
+
+        { 
+
+            p=root; 
+
+            while(p!=NULL) 
+
+            { 
+
+                if(a<p->data) 
+
+                { 
+
+                    p1=p; 
+
+                    p=p->left; 
+
+                } 
+
+                else 
+
+                { 
+
+                    p1=p; 
+
+                    p=p->right; 
+
+                } 
+
+            } 
+
+            if(a<p1->data) 
+
+            { 
+
+               p1->left=ptr; 
+
+            } 
+
+            else 
+
+            { 
+
+               p1->right=ptr; 
+
+            } 
+
+        } 
+
+    } 
+
+    void internal_node(node* ptr) 
+
+    { 
+
+        Queue <node*> q; 
+
+        q.enqueue(ptr); 
+
+        node* n=new node; 
+
+        node* temp1=new node; 
+
+        node* temp2=new node; 
+
+        while(!q.isempty()) 
+
+        {    
+
+            n=q.peek(); 
+
+            cout<<n->data<<" "; 
+
+            q.dequeue(); 
+
+            if(n->left!=NULL) 
+
+            {   temp1=n->left; 
+
+                if(temp1->left==NULL&&temp1->right==NULL) 
+
+                { 
+
+                     
+
+                } 
+
+                else 
+
+                { 
+
+                  q.enqueue(temp1); 
+
+                } 
+            } 
+            if(n->right!=NULL) 
+            {   temp2=n->right; 
+                if(temp2->left==NULL&&temp2->right==NULL) 
+                { 
+                     
+                } 
+                else 
+                { 
+                  q.enqueue(temp2); 
+                } 
+            } 
+        } 
+    } 
+}; 
+int main() 
+{   int a; 
+    char ch='y'; 
+    bst obj; 
+    do{ 
+    cout<<"Insert data in BST"<<endl; 
+    cin>>a; 
+    obj.insert(a); 
+    cout<<"Do you want to continue? "<<endl; 
+    cin>>ch; 
+    }while(ch=='y'||ch=='Y'); 
+    cout<<"Internal nodes in the Binary tree in bfs order is: "<<endl; 
+    obj.internal_node(obj.root); 
+    return 0; 
+} 
